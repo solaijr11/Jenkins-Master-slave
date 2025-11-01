@@ -6,13 +6,13 @@
           ▼
  [ Jenkins Master ]
    │     │
-   │     ├──> [ Slave 1: Build Node ]
+   │     ├──> [ CI Agent 1: Build Node ]      
    │     │         - Build code
    │     │         - Run tests
    │     │         - Send to SonarQube
    │     │         - Upload artifact to Nexus
    │     │
-   │     └──> [ Slave 2: Deploy Node ]
+   │     └──> [ Done by Master  ]
    │               - Fetch artifact from Nexus
    │               - Deploy to Tomcat
    │               - Run post-deploy checks
@@ -34,7 +34,7 @@
 | **Required Ports** | 22 (SSH), 8080 (Jenkins), 50000 (Agent Connection)         |
 | **Tools**          | Jenkins, Git, Java (OpenJDK 11 or higher)                  |
 
-### Slave1 Node (Build & Test)
+### CI-agent Node (Build & Test)
 | **Property**       | **Value**                                                  |
 |--------------------|------------------------------------------------------------|
 | **OS**             | Ubuntu 22.04 LTS                                           |
@@ -42,13 +42,13 @@
 | **Required Ports** | 22 (SSH)                                                   |
 | **Tools**          | Maven, Java (OpenJDK 11 or higher)                         |
 
-### Slave2 Node (Deploy)
+### Tomcat server (Deploy)
 | **Property**       | **Value**                                                  |
 |--------------------|------------------------------------------------------------|
 | **OS**             | Ubuntu 22.04 LTS                                           |
 | **Purpose**        | deploy                                                     |
-| **Required Ports** | 22 (SSH)                                                   |
-| **Tools**          | Maven, Java (OpenJDK 11 or higher)                         |
+| **Required Ports** | 22 (SSH) , CustomTCP(8080)                                 |
+| **Tools**          | Java (OpenJDK 11 or higher)                         |
 
 # 🔧 Jenkins Master Configuration
 
@@ -73,20 +73,31 @@ sudo apt install jenkins -y
 
 ## Access Jenkins:
 👉 ```http://<master-public-ip>:8080```
-# 🧩 Slave Node Configuration
-## ⚙️ Jenkins Node Setup (via Web UI)
+
+ # ⚙️ Jenkins Node Setup (via Web UI)
   1. Go to Manage Jenkins → Nodes → New Node
   2. Create Node:
-   - Name: ```slave1```
+   - Name: ```CI-agent```
    - Type: Permanent Agent
-   - Remote root directory: ```/home/jenkins```
+   - Remote root directory: ```/home/ubuntu``` - (use 'pwd' command or make one seperate ```dir```)
    - Labels: ```build node```
    - Launch method: Launch agents via SSH
    - Host: ```<slave1-private-ip>```
    - Credentials: Jenkins SSH key
    - Save and Connect
-  #### Repeat the same steps for:
-  - Slave2 with labels: ```deploy```
+
+---
+# 🔎SonarQube Setup Guide
+- [Setuplink🔗](fidyfu)
+
+---
+# 🗃️Nexus  Setup Guide
+- [Setuplink🔗](fidyfu)
+- 
+---
+# 📡 Tomcat Setup Guide
+- [Setuplink🔗](fidyfu)
+
 
 
 
