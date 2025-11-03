@@ -84,11 +84,12 @@ sudo apt install jenkins -y
    - Launch method: Launch agents via SSH
    - Host: ```<slave1-private-ip>```
    - Credentials: Jenkins SSH key
+   - (note: Host Key Verification Strategy -> Non verification Strategy ) only for demo
    - Save and Connect
 
 ---
 # 🔎SonarQube Setup Guide
-- [Setuplink🔗](fidyfu)
+- [Setuplink🔗](https://github.com/solaijr11/SonarQube)
 
 ---
 # 🗃️Nexus  Setup Guide
